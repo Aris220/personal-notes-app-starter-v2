@@ -11,13 +11,14 @@ const ButtonLanguage = ({ onClick }) => {
       title="language"
       onClick={onClick}
     >
-      <img src="/icons/language.svg" alt="Labguage Icon" />
+      <img src="/icons/language.svg" alt="Language Icon" />
     </button>
   );
 };
+
 // PropTypes validation
-ButtonSave.propTypes = {
-  onClick: PropTypes.func.isRequired,
+ButtonLanguage.propTypes = {
+  onClick: PropTypes.func,
 };
 
 export default ButtonLanguage;

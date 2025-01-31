@@ -75,7 +75,7 @@ header .navigation ul li {
 
 .flex-nav a {
   font-size: 20px;
-  color: white;
+  color: var(--on-background);
   text-decoration: none;
   margin: 0px 15px;
   padding: 10px 15px;
@@ -85,7 +85,7 @@ header .navigation ul li {
 }
 
 .flex-nav a:hover {
-  background-color: white;
+  background-color: var(--on-background);
   color: black;
   /* transform: scale(1.2);  */
 }
@@ -257,6 +257,11 @@ main {
 
 .toggle-locale {
   font-size: 28px;
+}
+.toggle-locale img,
+.toggle-theme img {
+  width: 1em; /* 1em will scale with the font-size of the parent */
+  height: 1em;
 }
 
 .input-login,

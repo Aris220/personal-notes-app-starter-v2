@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { Outlet } from "react-router";
 
 //File css
@@ -6,15 +5,16 @@ import styles from "../../styles/style.module.css";
 
 //File component
 import Navbar from "../Fragments/Navbar";
-//File context
 import { useTheme } from "../../context/theme/ThemeContext";
-const MainLayout = (props) => {
-  const { children } = props;
+//File context
+
+const AuthLayout = (props) => {
+  const {} = props;
   const { theme } = useTheme();
   return (
     <>
       <div className={`${styles["app-container"]} ${styles[theme]}`}>
-        <Navbar />
+        <Navbar type="auth" />
         {/* <main>{children}</main> */}
         <main>
           <Outlet />
@@ -29,4 +29,4 @@ const MainLayout = (props) => {
 //   children: PropTypes.node.isRequired,
 // };
 
-export default MainLayout;
+export default AuthLayout;

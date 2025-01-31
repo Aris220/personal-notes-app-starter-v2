@@ -2,14 +2,18 @@ import PropTypes from "prop-types";
 
 //File css
 import styles from "../../../styles/style.module.css";
+//File context
+import { useTheme } from "../../../context/theme/ThemeContext";
 
-const ButtonTheme = ({ onClick }) => {
+const ButtonTheme = (props) => {
+  // const { onClick, theme } = props;
+  const { theme, toggleTheme } = useTheme();
   return (
     <button
       className={styles["toggle-theme"]}
       type="button"
       title="Theme"
-      onClick={onClick}
+      onClick={toggleTheme}
     >
       {theme === "light" ? (
         <img src="/icons/themeMoon.svg" alt="ThemeMoon Icon" />
@@ -20,8 +24,8 @@ const ButtonTheme = ({ onClick }) => {
   );
 };
 // PropTypes validation
-ButtonSave.propTypes = {
-  onClick: PropTypes.func.isRequired,
+ButtonTheme.propTypes = {
+  onClick: PropTypes.func,
 };
 
 export default ButtonTheme;

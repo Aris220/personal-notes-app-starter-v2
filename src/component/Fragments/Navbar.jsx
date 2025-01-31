@@ -2,8 +2,12 @@ import { Link } from "react-router";
 
 //File css
 import styles from "../../styles/style.module.css";
+import ButtonSave from "../Elements/button/ButtonSave";
+import ButtonLanguage from "../Elements/button/ButtonLanguage";
+import ButtonTheme from "../Elements/button/ButtonTheme";
 
-const Navbar = () => {
+const Navbar = (props) => {
+  const { type } = props;
   return (
     <>
       <header className={styles["header"]}>
@@ -14,8 +18,17 @@ const Navbar = () => {
         </h1>
 
         <nav className={styles["flex-nav"]}>
-          <Link to="/">Notes</Link>
-          <Link to="/archive">Archive</Link>
+          {type === "auth" ? (
+            <>
+              <ButtonTheme /> <ButtonLanguage />
+            </>
+          ) : (
+            <>
+              <Link to="/">Notes</Link>
+              <Link to="/archive">Archive</Link>
+              <ButtonTheme /> <ButtonLanguage />
+            </>
+          )}
         </nav>
       </header>
     </>
