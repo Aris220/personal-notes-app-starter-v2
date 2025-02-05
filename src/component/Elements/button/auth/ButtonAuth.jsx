@@ -3,9 +3,16 @@ import PropTypes from "prop-types";
 import styles from "../../../../styles/style.module.css";
 
 const ButtonAuth = (props) => {
-  const { children, onClick } = props;
+  //   const { children, onClick } = props;
+  //   return (
+  //     <button className={styles[""]} type="submit" title="Auth" onClick={onClick}>
+  //       {children}
+  //     </button>
+  //   );
+  // };
+  const { children } = props;
   return (
-    <button className={styles[""]} type="submit" title="Auth" onClick={onClick}>
+    <button className={styles[""]} type="submit" title="Auth">
       {children}
     </button>
   );

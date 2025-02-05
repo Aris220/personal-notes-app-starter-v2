@@ -22,6 +22,7 @@ const ButtonTheme = (props) => {
       )}
     </button>
   );
+  console.log(theme);
 };
 // PropTypes validation
 ButtonTheme.propTypes = {

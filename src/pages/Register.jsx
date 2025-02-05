@@ -38,21 +38,21 @@ const Register = () => {
               name="email"
               placeholder="example@mail.com"
             />
-            <div className="mb-6">
-              <InputForm
-                label="Password"
-                name="password"
-                type="password"
-                placeholder="******"
-              />
 
-              <InputForm
-                label="ConfirmPassword"
-                name="confirmPassword"
-                type="password"
-                placeholder="******"
-              />
-            </div>
+            <InputForm
+              label="Password"
+              name="password"
+              type="password"
+              placeholder="******"
+            />
+
+            <InputForm
+              label="ConfirmPassword"
+              name="confirmPassword"
+              type="password"
+              placeholder="******"
+            />
+
             <ButtonAuth>Register</ButtonAuth>
           </div>
         </form>
