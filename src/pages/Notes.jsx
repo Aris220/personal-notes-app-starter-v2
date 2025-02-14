@@ -4,7 +4,8 @@ import { useLocation } from "react-router";
 
 //File utils
 import { showFormattedDate } from "../utils";
-import { getActiveNotes, addNote } from "../utils/local-data";
+// import { addNote } from "../utils/local-data";
+import { getActiveNotes } from "../utils/network-data";
 
 //File css
 import styles from "../styles/style.module.css";
@@ -17,20 +18,34 @@ import ButtonAdd from "../component/Elements/button/ButtonAdd";
 
 const Notes = () => {
   const [notes, setNotes] = useState([]);
-  const loaded = useRef(false);
+  // const loaded = useRef(false);
 
   // Get the search query from the URL
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
   const query = queryParams.get("query") || ""; // Default to empty string if no query
 
+  // useEffect(() => {
+  //   if (!loaded.current) {
+  //     const data = getActiveNotes();
+  //     setNotes(data);
+  //     loaded.current = true;
+  //     console.log(data);
+  //   }
+  // }, []);
   useEffect(() => {
-    if (!loaded.current) {
-      const data = getActiveNotes();
-      setNotes(data);
-      loaded.current = true;
-      console.log(data);
-    }
+    const fetchNotes = async () => {
+      const result = await getActiveNotes();
+
+      if (result.error) {
+        console.error("Failed to fetch notes:", result);
+        setNotes([]);
+      } else {
+        setNotes(result.data || []);
+      }
+    };
+
+    fetchNotes();
   }, []);
 
   // Filter notes based on the query
@@ -39,14 +54,14 @@ const Notes = () => {
   );
 
   // Func AddNote
-  const handleAddNote = ({ title, body }) => {
-    // Add the new note
-    addNote({ title, body });
+  // const handleAddNote = ({ title, body }) => {
+  //   // Add the new note
+  //   addNote({ title, body });
 
-    // Fetch and update the notes state with the latest data
-    const updatedNotes = getActiveNotes();
-    setNotes(updatedNotes);
-  };
+  //   // Fetch and update the notes state with the latest data
+  //   const updatedNotes = getActiveNotes();
+  //   setNotes(updatedNotes);
+  // };
 
   return (
     <section className={styles["homepage"]}>

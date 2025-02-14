@@ -5,12 +5,12 @@ import PropTypes from "prop-types";
 //File css
 import styles from "../styles/style.module.css";
 //File utils
-import {
-  getNote,
-  deleteNote,
-  archiveNote,
-  unarchiveNote,
-} from "../utils/local-data";
+// import {
+//   getNote,
+//   deleteNote,
+//   archiveNote,
+//   unarchiveNote,
+// } from "../utils/local-data";
 //File component
 import ButtonArchive from "../component/Elements/button/buttonArchive";
 import ButtonDelete from "../component/Elements/button/buttonDelete";

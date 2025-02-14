@@ -1,10 +1,12 @@
 import { useState, useCallback, useEffect } from "react";
 import { login, register } from "../utils/network-data";
+import { useNavigate } from "react-router";
 
 const useAuth = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   // Check if user is already logged in
   useEffect(() => {
@@ -64,8 +66,10 @@ const useAuth = () => {
   // Logout function
   const logout = useCallback(() => {
     localStorage.removeItem("accessToken");
+
     setUser(null);
-  }, []);
+    navigate("/login");
+  }, [navigate, setUser]);
 
   return {
     user,

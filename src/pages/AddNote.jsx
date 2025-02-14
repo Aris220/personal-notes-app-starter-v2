@@ -6,7 +6,7 @@ import styles from "../styles/style.module.css";
 //File component
 import ButtonSave from "../component/Elements/button/ButtonSave";
 //File utils
-import { addNote } from "../utils/local-data";
+// import { addNote } from "../utils/local-data";
 const AddNote = () => {
   const [title, setTitle] = useState(""); // For title input
   const [body, setBody] = useState(""); // For body contentEditable

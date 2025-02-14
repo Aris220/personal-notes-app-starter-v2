@@ -4,7 +4,7 @@ import { useLocation } from "react-router";
 
 //File utils
 import { showFormattedDate } from "../utils";
-import { getArchivedNotes } from "../utils/local-data";
+// import { getArchivedNotes } from "../utils/local-data";
 
 //File css
 import styles from "../styles/style.module.css";
@@ -19,13 +19,13 @@ const Archive = () => {
   const [notes, setNotes] = useState([]);
   const loaded = useRef(false);
 
-  useEffect(() => {
-    if (!loaded.current) {
-      const data = getArchivedNotes();
-      setNotes(data);
-      loaded.current = true;
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!loaded.current) {
+  //     const data = getArchivedNotes();
+  //     setNotes(data);
+  //     loaded.current = true;
+  //   }
+  // }, []);
 
   //search
   const { search } = useLocation();

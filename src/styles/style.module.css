@@ -310,9 +310,14 @@ main {
   gap: 8px;
   background-color: transparent;
   border: 0;
-  font-size: 28px;
+  font-size: 36px;
   cursor: pointer;
   color: var(--on-background);
+}
+
+.button-logout img {
+  width: 1em; /* 1em will scale with the font-size of the parent */
+  height: 1em;
 }
 
 @media screen and (min-width: 650px) {

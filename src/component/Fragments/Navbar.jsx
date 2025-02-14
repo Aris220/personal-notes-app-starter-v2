@@ -5,9 +5,13 @@ import styles from "../../styles/style.module.css";
 import ButtonSave from "../Elements/button/ButtonSave";
 import ButtonLanguage from "../Elements/button/ButtonLanguage";
 import ButtonTheme from "../Elements/button/ButtonTheme";
+import ButtonLogout from "../Elements/button/auth/ButtonLogout";
+
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = (props) => {
   const { type } = props;
+  const { logout } = useAuth();
   return (
     <>
       <header className={styles["header"]}>
@@ -27,6 +31,7 @@ const Navbar = (props) => {
               <Link to="/">Notes</Link>
               <Link to="/archive">Archive</Link>
               <ButtonTheme /> <ButtonLanguage />
+              <ButtonLogout onClick={logout} />
             </>
           )}
         </nav>
