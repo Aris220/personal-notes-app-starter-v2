@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import useAuth from "../hooks/useAuth"; // Import useAuth hook
+import useLogin from "../hooks/useLogin";
 import styles from "../styles/style.module.css";
 import InputForm from "../component/Elements/input/auth/InputForm";
 import ButtonAuth from "../component/Elements/button/auth/ButtonAuth";
@@ -8,13 +8,8 @@ import ButtonAuth from "../component/Elements/button/auth/ButtonAuth";
 const Login = () => {
   const usernameRef = useRef(null);
   const navigate = useNavigate();
-  const { login, loading, error } = useAuth(); // Use useAuth hook
-
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-
+  const { login, loading, error, formData, handleChange, validate, errors } =
+    useLogin();
   const [localErrors, setLocalErrors] = useState({});
 
   useEffect(() => {
@@ -23,32 +18,25 @@ const Login = () => {
     }
   }, []);
 
-  // Handle input change
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    setLocalErrors({ ...localErrors, [e.target.name]: "" });
-  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // Validate inputs
-    let errors = {};
-    if (!formData.email.includes("@")) {
-      errors.email = "Invalid email format";
+    // Validate inputs before submitting
+    if (!validate()) {
+      setLocalErrors(errors);
+      return;
     }
-    if (formData.password.length < 6) {
-      errors.password = "Password must be at least 6 characters";
-    }
-    setLocalErrors(errors);
 
-    // Stop if there are errors
-    if (Object.keys(errors).length > 0) return;
+    console.log("Submitting login data: ", formData); // Debugging
 
-    const success = await login(formData);
-    if (success) {
-      navigate("/"); // Redirect after successful login
+    const result = await login();
+
+    if (result.error) {
+      alert("Login failed: " + error);
+    } else {
+      alert("Login successful!");
+      console.log("Redirecting to home...");
+      navigate("/");
     }
   };
 
@@ -67,7 +55,7 @@ const Login = () => {
             onChange={handleChange}
           />
           {localErrors.email && (
-            <p className={styles["error-text"]}>{localErrors.email}</p>
+            <p className="text-red-500">{localErrors.email}</p>
           )}
 
           <InputForm
@@ -79,14 +67,14 @@ const Login = () => {
             onChange={handleChange}
           />
           {localErrors.password && (
-            <p className={styles["error-text"]}>{localErrors.password}</p>
+            <p className="text-red-500">{localErrors.password}</p>
           )}
 
           <ButtonAuth disabled={loading}>
             {loading ? "Logging in..." : "Login"}
           </ButtonAuth>
         </div>
-        {error && <p className={styles["error-text"]}>{error}</p>}
+        {error && <p className="text-red-500">{error}</p>}
       </form>
     </section>
   );

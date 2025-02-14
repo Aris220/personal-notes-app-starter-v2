@@ -1,4 +1,5 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 //File css
 import styles from "../styles/style.module.css";
 
@@ -6,8 +7,22 @@ import styles from "../styles/style.module.css";
 import InputForm from "../component/Elements/input/auth/InputForm";
 import ButtonAuth from "../component/Elements/button/auth/ButtonAuth";
 
+//File custom hook
+import useAuth from "../hooks/useAuth";
+
 const Register = () => {
   const usernameRef = useRef(null);
+  const navigate = useNavigate();
+  const { register, loading, error } = useAuth(); // Use useAuth hook
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const [localErrors, setLocalErrors] = useState({});
 
   useEffect(() => {
     if (usernameRef.current) {
@@ -15,49 +30,99 @@ const Register = () => {
     }
   }, []);
 
-  const handleSubmit = (event) => {
-    event.preventDefault(); // Prevent page reload
-    console.log("Form submitted");
+  // Handle input change
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setLocalErrors({ ...localErrors, [e.target.name]: "" });
   };
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Validate inputs
+    let errors = {};
+    if (!formData.email.includes("@")) {
+      errors.email = "Invalid email format";
+    }
+    if (formData.password.length < 6) {
+      errors.password = "Password must be at least 6 characters";
+    }
+    if (formData.password !== formData.confirmPassword) {
+      errors.confirmPassword = "Passwords do not match";
+    }
+    setLocalErrors(errors);
+
+    // Stop if there are errors
+    if (Object.keys(errors).length > 0) return;
+
+    const success = await register(formData);
+    if (success) {
+      navigate("/login"); // Redirect to login page after successful registration
+    }
+  };
+
   return (
-    <>
-      <section className={styles["register-page"]}>
-        <h2>REGISTER</h2>
-        <form onSubmit={handleSubmit}>
-          <div className={styles["input-register"]}>
-            <InputForm
-              label="Name"
-              type="text"
-              name="name"
-              placeholder="John Doe"
-              ref={usernameRef}
-            />
-            <InputForm
-              label="Email"
-              type="text"
-              name="email"
-              placeholder="example@mail.com"
-            />
+    <section className={styles["register-page"]}>
+      <h2>REGISTER</h2>
+      <form onSubmit={handleSubmit}>
+        <div className={styles["input-register"]}>
+          <InputForm
+            label="Name"
+            type="text"
+            name="name"
+            placeholder="John Doe"
+            ref={usernameRef}
+            value={formData.name}
+            onChange={handleChange}
+          />
 
-            <InputForm
-              label="Password"
-              name="password"
-              type="password"
-              placeholder="******"
-            />
+          <InputForm
+            label="Email"
+            type="text"
+            name="email"
+            placeholder="example@mail.com"
+            value={formData.email}
+            onChange={handleChange}
+          />
+          {localErrors.email && (
+            <p className={styles["error-text"]}>{localErrors.email}</p>
+          )}
 
-            <InputForm
-              label="ConfirmPassword"
-              name="confirmPassword"
-              type="password"
-              placeholder="******"
-            />
+          <InputForm
+            label="Password"
+            name="password"
+            type="password"
+            placeholder="******"
+            value={formData.password}
+            onChange={handleChange}
+          />
+          {localErrors.password && (
+            <p className={styles["error-text"]}>{localErrors.password}</p>
+          )}
 
-            <ButtonAuth>Register</ButtonAuth>
-          </div>
-        </form>
-      </section>
-    </>
+          <InputForm
+            label="Confirm Password"
+            name="confirmPassword"
+            type="password"
+            placeholder="******"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+          />
+          {localErrors.confirmPassword && (
+            <p className={styles["error-text"]}>
+              {localErrors.confirmPassword}
+            </p>
+          )}
+
+          <ButtonAuth disabled={loading}>
+            {loading ? "Registering..." : "Register"}
+          </ButtonAuth>
+        </div>
+        {error && <p className={styles["error-text"]}>{error}</p>}
+      </form>
+    </section>
   );
 };
+
 export default Register;
