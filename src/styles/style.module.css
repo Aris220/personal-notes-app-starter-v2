@@ -9,6 +9,7 @@
   --on-background: #ffffff;
   --on-background-grey: #c7c7c7;
   --on-surface: #ffffff;
+  --suface: #121212;
 }
 
 [data-theme="light"] {
@@ -81,12 +82,11 @@ header .navigation ul li {
   padding: 10px 15px;
   border-radius: 5px;
   background-color: transparent;
-  /* transition: transform 0.3s ease, background-color 0.3s ease; */
 }
 
 .flex-nav a:hover {
   background-color: var(--on-background);
-  color: black;
+  color: var(--suface);
   /* transform: scale(1.2);  */
 }
 

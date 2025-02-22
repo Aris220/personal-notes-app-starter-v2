@@ -7,17 +7,22 @@ import ButtonLanguage from "../Elements/button/ButtonLanguage";
 import ButtonTheme from "../Elements/button/ButtonTheme";
 import ButtonLogout from "../Elements/button/auth/ButtonLogout";
 
+//File Custom Hook
 import useAuth from "../../hooks/useAuth";
+
+//File Context
+import { useLanguage } from "../../context/language/LanguageContext";
 
 const Navbar = (props) => {
   const { type } = props;
   const { logout, user } = useAuth();
+  const { language } = useLanguage();
   return (
     <>
       <header className={styles["header"]}>
         <h1>
           <Link to="/" className={styles["link-style"]}>
-            Notes App
+            {language === "en" ? "Notes App" : "Aplikasi Catatan"}
           </Link>
         </h1>
 
@@ -28,8 +33,10 @@ const Navbar = (props) => {
             </>
           ) : (
             <>
-              <Link to="/">Notes</Link>
-              <Link to="/archive">Archive</Link>
+              <Link to="/">{language === "en" ? "Notes" : "Catatan"}</Link>
+              <Link to="/archive">
+                {language === "en" ? "Archive" : "Arsip"}
+              </Link>
               <ButtonTheme /> <ButtonLanguage />
               <ButtonLogout onClick={logout}>
                 {`${user?.name || "User"}`}

@@ -1,23 +1,23 @@
 import PropTypes from "prop-types";
-
 //File css
-import styles from "../../../styles/style.module.css";
+import styles from "../../../../styles/style.module.css";
 
-const ButtonDelete = ({ onClick }) => {
+const ButtonSave = ({ onClick }) => {
   return (
     <button
       className={styles["action"]}
       type="button"
-      title="arhive"
+      title="save"
       onClick={onClick}
     >
-      <img src="/icons/delete.svg" alt="Delete Icon" />
+      <img src="/icons/archive.svg" alt="Save Icon" />
     </button>
   );
 };
 
 // PropTypes validation
-ButtonDelete.propTypes = {
+ButtonSave.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
-export default ButtonDelete;
+
+export default ButtonSave;

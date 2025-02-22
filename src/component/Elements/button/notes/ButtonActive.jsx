@@ -1,23 +1,22 @@
 import PropTypes from "prop-types";
 
 //File css
-import styles from "../../../styles/style.module.css";
+import styles from "../../../../styles/style.module.css";
 
-const ButtonArchive = ({ onClick }) => {
+const ButtonActive = ({ onClick }) => {
   return (
     <button
       className={styles["action"]}
       type="button"
-      title="arhive"
+      title="active"
       onClick={onClick}
     >
-      <img src="/icons/archive.svg" alt="Archive Icon" />
+      <img src="/icons/active.svg" alt="Archive Icon" />
     </button>
   );
 };
-
 // PropTypes validation
-ButtonArchive.propTypes = {
+ButtonActive.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
-export default ButtonArchive;
+export default ButtonActive;

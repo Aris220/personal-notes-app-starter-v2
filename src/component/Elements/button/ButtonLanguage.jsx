@@ -2,14 +2,19 @@ import PropTypes from "prop-types";
 
 //File css
 import styles from "../../../styles/style.module.css";
-
-const ButtonLanguage = ({ onClick }) => {
+//File context
+import { useLanguage } from "../../../context/language/LanguageContext";
+const ButtonLanguage = ({}) => {
+  const { language, setLanguage } = useLanguage();
+  const toggleLanguage = () => {
+    setLanguage(language === "en" ? "id" : "en"); // Toggle language
+  };
   return (
     <button
       className={styles["toggle-locale"]}
       type="button"
       title="language"
-      onClick={onClick}
+      onClick={toggleLanguage}
     >
       <img src="/icons/language.svg" alt="Language Icon" />
     </button>

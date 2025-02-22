@@ -4,21 +4,24 @@ import { useLocation } from "react-router";
 
 //File utils
 import { showFormattedDate } from "../utils";
-// import { addNote } from "../utils/local-data";
 import { getActiveNotes } from "../utils/network-data";
 
 //File css
 import styles from "../styles/style.module.css";
 
+//File context
+import { useLanguage } from "../context/language/LanguageContext";
+
 //File component
 import NotFound from "../component/Fragments/NotFound";
 import CardNote from "../component/Fragments/CardNote";
 import SearchNote from "../component/Fragments/SearchNote";
-import ButtonAdd from "../component/Elements/button/ButtonAdd";
+import ButtonAdd from "../component/Elements/button/notes/ButtonAdd";
 import LoadingNote from "../component/Fragments/Loading";
 const Notes = () => {
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { language } = useLanguage();
 
   useEffect(() => {
     const fetchNotes = async () => {
@@ -50,7 +53,9 @@ const Notes = () => {
 
   return (
     <section className={styles["homepage"]}>
-      <SearchNote>Active Note</SearchNote>
+      <SearchNote>
+        {language === "en" ? "Active Note" : "Catatan Aktif"}
+      </SearchNote>
       {loading ? (
         <section className={styles["notes-list"]}>
           {/*//? Show 3 skeletons while loading */}

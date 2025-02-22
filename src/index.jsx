@@ -14,30 +14,33 @@ import Login from "./pages/Login";
 import AuthLayout from "./component/Layouts/AuthLayout";
 import Register from "./pages/Register";
 import { ThemeProvider } from "./context/theme/ThemeContext";
+import { LanguageProvider } from "./context/language/LanguageContext";
 import ProtectedRoute from "./component/Routes/ProtectedRoute";
 
 const root = createRoot(document.getElementById("root"));
 root.render(
-  <ThemeProvider>
-    <BrowserRouter>
-      <Routes>
-        {/* Public Routes (No Authentication Needed) */}
-        <Route element={<AuthLayout />}>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Route>
-
-        {/* Protected Routes (Require Authentication) */}
-        <Route element={<ProtectedRoute />}>
-          <Route element={<MainLayout />}>
-            <Route path="/" element={<Notes />} />
-            <Route path="/notes/:id" element={<NoteDetail />} />
-            <Route path="/notes/new" element={<AddNote />} />
-            <Route path="/archive" element={<Archive />} />
-            <Route path="/*" element={<NotFoundPage />} />
+  <LanguageProvider>
+    <ThemeProvider>
+      <BrowserRouter>
+        <Routes>
+          {/* Public Routes (No Authentication Needed) */}
+          <Route element={<AuthLayout />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
           </Route>
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  </ThemeProvider>
+
+          {/* Protected Routes (Require Authentication) */}
+          <Route element={<ProtectedRoute />}>
+            <Route element={<MainLayout />}>
+              <Route path="/" element={<Notes />} />
+              <Route path="/notes/:id" element={<NoteDetail />} />
+              <Route path="/notes/new" element={<AddNote />} />
+              <Route path="/archive" element={<Archive />} />
+              <Route path="/*" element={<NotFoundPage />} />
+            </Route>
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
+  </LanguageProvider>
 );

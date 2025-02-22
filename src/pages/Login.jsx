@@ -1,7 +1,15 @@
 import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import useAuth from "../hooks/useAuth"; // Import useAuth hook
+import { Link } from "react-router";
+
+//File css
 import styles from "../styles/style.module.css";
+//File context
+import { useLanguage } from "../context/language/LanguageContext";
+//File custom hook
+import useAuth from "../hooks/useAuth";
+
+//File component
 import InputForm from "../component/Elements/input/auth/InputForm";
 import ButtonAuth from "../component/Elements/button/auth/ButtonAuth";
 
@@ -9,7 +17,7 @@ const Login = () => {
   const usernameRef = useRef(null);
   const navigate = useNavigate();
   const { login, loading, error } = useAuth(); // Use useAuth hook
-
+  const { language } = useLanguage();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -88,6 +96,13 @@ const Login = () => {
         </div>
         {error && <p className={styles["error-text"]}>{error}</p>}
       </form>
+      <p>
+        {language === "en" ? "Don't have an account?" : "Belum punya akun?"}
+        <Link to="/register">
+          {" "}
+          {language === "en" ? "REGISTER HERE" : "Daftar di sini"}
+        </Link>
+      </p>
     </section>
   );
 };

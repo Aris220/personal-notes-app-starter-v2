@@ -14,8 +14,8 @@ import styles from "../styles/style.module.css";
 import NotFound from "../component/Fragments/NotFound";
 import CardNote from "../component/Fragments/CardNote";
 import SearchNote from "../component/Fragments/SearchNote";
-import ButtonAdd from "../component/Elements/button/ButtonAdd";
 import LoadingNote from "../component/Fragments/Loading";
+
 const Archive = () => {
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);

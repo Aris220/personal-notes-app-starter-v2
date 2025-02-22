@@ -1,29 +1,28 @@
 import { useRef, useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, Link } from "react-router";
 //File css
 import styles from "../styles/style.module.css";
+//File context
+import { useLanguage } from "../context/language/LanguageContext";
+//File custom hook
+import useAuth from "../hooks/useAuth";
 
 //File component
 import InputForm from "../component/Elements/input/auth/InputForm";
 import ButtonAuth from "../component/Elements/button/auth/ButtonAuth";
 
-//File custom hook
-import useAuth from "../hooks/useAuth";
-
 const Register = () => {
   const usernameRef = useRef(null);
   const navigate = useNavigate();
   const { register, loading, error } = useAuth(); // Use useAuth hook
-
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
-
   const [localErrors, setLocalErrors] = useState({});
-
+  const { language } = useLanguage();
   useEffect(() => {
     if (usernameRef.current) {
       usernameRef.current.focus();
@@ -64,7 +63,7 @@ const Register = () => {
 
   return (
     <section className={styles["register-page"]}>
-      <h2>REGISTER</h2>
+      <h2>{language === "en" ? "REGISTER" : "Daftar"}</h2>
       <form onSubmit={handleSubmit}>
         <div className={styles["input-register"]}>
           <InputForm
@@ -121,6 +120,12 @@ const Register = () => {
         </div>
         {error && <p className={styles["error-text"]}>{error}</p>}
       </form>
+      <p>
+        {language === "en" ? "Already have an account?" : "Sudah punya akun?"}
+        <Link to="/login">
+          {language === "en" ? "Login here" : "Login di sini"}
+        </Link>
+      </p>
     </section>
   );
 };

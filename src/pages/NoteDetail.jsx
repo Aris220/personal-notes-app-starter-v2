@@ -12,9 +12,9 @@ import {
   unarchiveNote,
 } from "../utils/network-data";
 //File component
-import ButtonArchive from "../component/Elements/button/buttonArchive";
-import ButtonDelete from "../component/Elements/button/buttonDelete";
-import ButtonActive from "../component/Elements/button/ButtonActive";
+import ButtonArchive from "../component/Elements/button/notes/ButtonActive";
+import ButtonDelete from "../component/Elements/button/notes/ButtonDelete";
+import ButtonActive from "../component/Elements/button/notes/ButtonActive";
 import LoadingNote from "../component/Fragments/Loading";
 const NoteDetail = () => {
   const { id } = useParams();
