@@ -1,11 +1,12 @@
 import { useState, useCallback, useEffect } from "react";
-import { login, register } from "../utils/network-data";
+import { login, register, getUserLogged } from "../utils/network-data";
 import { useNavigate } from "react-router";
 
 const useAuth = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [userName, setUserName] = useState("");
   const navigate = useNavigate();
 
   // Check if user is already logged in
@@ -14,6 +15,16 @@ const useAuth = () => {
     if (token) {
       setUser({ token: token });
     }
+  }, []);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const user = await getUserLogged();
+      if (!user.error) {
+        setUser(user.data); // 🔹 Set username if available
+      }
+    };
+    fetchUser();
   }, []);
 
   // Login function

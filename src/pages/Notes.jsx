@@ -48,16 +48,6 @@ const Notes = () => {
     (note) => note.title.toLowerCase().includes(query.toLowerCase()) // Case-insensitive search
   );
 
-  // Func AddNote
-  // const handleAddNote = ({ title, body }) => {
-  //   // Add the new note
-  //   addNote({ title, body });
-
-  //   // Fetch and update the notes state with the latest data
-  //   const updatedNotes = getActiveNotes();
-  //   setNotes(updatedNotes);
-  // };
-
   return (
     <section className={styles["homepage"]}>
       <SearchNote>Active Note</SearchNote>
@@ -88,7 +78,7 @@ const Notes = () => {
       )}
       <div>
         <section className={styles["homepage__action"]}>
-          <ButtonAdd /> {/* Link to AddNote page */}
+          <ButtonAdd />
         </section>
       </div>
     </section>
