@@ -8,8 +8,7 @@ import Navbar from "../Fragments/Navbar";
 import { useTheme } from "../../context/theme/ThemeContext";
 //File context
 
-const AuthLayout = (props) => {
-  const {} = props;
+const AuthLayout = () => {
   const { theme } = useTheme();
   const token = localStorage.getItem("accessToken");
 

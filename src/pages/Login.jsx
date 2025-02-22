@@ -113,8 +113,8 @@ Login.propTypes = {
     email: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
   }),
-  handleChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
+  handleChange: PropTypes.func,
+  handleSubmit: PropTypes.func,
   localErrors: PropTypes.object,
 };
 

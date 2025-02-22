@@ -49,8 +49,5 @@ const Navbar = (props) => {
     </>
   );
 };
-Navbar.propTypes = {
-  type: PropTypes.oneOf(["auth", "main"]).isRequired, // hanya bisa 'auth' atau 'main'
-};
 
 export default Navbar;

@@ -15,10 +15,12 @@ import NotFound from "../component/Fragments/NotFound";
 import CardNote from "../component/Fragments/CardNote";
 import SearchNote from "../component/Fragments/SearchNote";
 import LoadingNote from "../component/Fragments/Loading";
+import { useLanguage } from "../context/language/LanguageContext";
 
 const Archive = () => {
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { language } = useLanguage();
 
   //? fetch data archivedNotes
   useEffect(() => {
@@ -50,13 +52,12 @@ const Archive = () => {
     (note) => note.title.toLowerCase().includes(query.toLowerCase()) // Case-insensitive search
   );
 
-  console.log("Before Filtering:", notes);
-  console.log("After Filtering:", filteredNotes);
-
   return (
     <>
       <section className={styles["homepage"]}>
-        <SearchNote>Archive Note</SearchNote>
+        <SearchNote>
+          {language === "en" ? "Archive Note" : "Catatan Arsip"}
+        </SearchNote>
         {loading ? (
           <section className={styles["notes-list"]}>
             {/*//? Show 3 skeletons while loading */}
@@ -100,7 +101,6 @@ Archive.propTypes = {
       archived: PropTypes.bool.isRequired,
     })
   ),
-  loading: PropTypes.bool.isRequired,
 };
 
 export default Archive;
