@@ -12,7 +12,7 @@ const useAuth = () => {
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     if (token) {
-      setUser({ token: JSON.parse(token) });
+      setUser({ token: token });
     }
   }, []);
 
@@ -28,10 +28,7 @@ const useAuth = () => {
       return false;
     }
 
-    localStorage.setItem(
-      "accessToken",
-      JSON.stringify(result.data.accessToken)
-    );
+    localStorage.setItem("accessToken", result.data.accessToken);
     setUser({ token: result.data.accessToken });
     setLoading(false);
     return true;

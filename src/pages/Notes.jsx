@@ -15,26 +15,14 @@ import NotFound from "../component/Fragments/NotFound";
 import CardNote from "../component/Fragments/CardNote";
 import SearchNote from "../component/Fragments/SearchNote";
 import ButtonAdd from "../component/Elements/button/ButtonAdd";
-
+import LoadingNote from "../component/Fragments/Loading";
 const Notes = () => {
   const [notes, setNotes] = useState([]);
-  // const loaded = useRef(false);
+  const [loading, setLoading] = useState(true);
 
-  // Get the search query from the URL
-  const { search } = useLocation();
-  const queryParams = new URLSearchParams(search);
-  const query = queryParams.get("query") || ""; // Default to empty string if no query
-
-  // useEffect(() => {
-  //   if (!loaded.current) {
-  //     const data = getActiveNotes();
-  //     setNotes(data);
-  //     loaded.current = true;
-  //     console.log(data);
-  //   }
-  // }, []);
   useEffect(() => {
     const fetchNotes = async () => {
+      setLoading(true);
       const result = await getActiveNotes();
 
       if (result.error) {
@@ -43,10 +31,17 @@ const Notes = () => {
       } else {
         setNotes(result.data || []);
       }
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      setLoading(false);
     };
 
     fetchNotes();
   }, []);
+
+  // Get the search query from the URL
+  const { search } = useLocation();
+  const queryParams = new URLSearchParams(search);
+  const query = queryParams.get("query") || ""; // Default to empty string if no query
 
   // Filter notes based on the query
   const filteredNotes = notes.filter(
@@ -66,7 +61,15 @@ const Notes = () => {
   return (
     <section className={styles["homepage"]}>
       <SearchNote>Active Note</SearchNote>
-      {filteredNotes.length === 0 ? (
+      {loading ? (
+        <section className={styles["notes-list"]}>
+          {/*//? Show 3 skeletons while loading */}
+          <LoadingNote />
+          <LoadingNote />
+          <LoadingNote />
+          <LoadingNote />
+        </section>
+      ) : filteredNotes.length === 0 ? (
         <NotFound type="notes" />
       ) : (
         <section className={styles["notes-list"]}>

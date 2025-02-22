@@ -4,6 +4,7 @@ import { useLocation } from "react-router";
 
 //File utils
 import { showFormattedDate } from "../utils";
+import { getArchivedNotes } from "../utils/network-data";
 // import { getArchivedNotes } from "../utils/local-data";
 
 //File css
@@ -14,10 +15,10 @@ import NotFound from "../component/Fragments/NotFound";
 import CardNote from "../component/Fragments/CardNote";
 import SearchNote from "../component/Fragments/SearchNote";
 import ButtonAdd from "../component/Elements/button/ButtonAdd";
-
+import LoadingNote from "../component/Fragments/Loading";
 const Archive = () => {
   const [notes, setNotes] = useState([]);
-  const loaded = useRef(false);
+  const [loading, setLoading] = useState(true);
 
   // useEffect(() => {
   //   if (!loaded.current) {
@@ -26,6 +27,26 @@ const Archive = () => {
   //     loaded.current = true;
   //   }
   // }, []);
+
+  //?ini yg bner
+  useEffect(() => {
+    const fetchArchivedNotes = async () => {
+      setLoading(true);
+      const result = await getArchivedNotes();
+
+      if (result.error) {
+        console.error("Failed to fetch notes:", result);
+        setNotes([]);
+      } else {
+        setNotes(result.data || []);
+      }
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      setLoading(false);
+    };
+
+    fetchArchivedNotes();
+  }, []);
 
   //search
   const { search } = useLocation();
@@ -37,14 +58,22 @@ const Archive = () => {
     (note) => note.title.toLowerCase().includes(query.toLowerCase()) // Case-insensitive search
   );
 
+  console.log("Before Filtering:", notes);
+  console.log("After Filtering:", filteredNotes);
+
   return (
     <>
-      {/* <div className={styles["app-container"]}>
-        <Navbar />
-        <main> */}
       <section className={styles["homepage"]}>
         <SearchNote>Archive Note</SearchNote>
-        {filteredNotes.length === 0 ? (
+        {loading ? (
+          <section className={styles["notes-list"]}>
+            {/*//? Show 3 skeletons while loading */}
+            <LoadingNote />
+            <LoadingNote />
+            <LoadingNote />
+            <LoadingNote />
+          </section>
+        ) : filteredNotes.length === 0 ? (
           <NotFound type="archive" />
         ) : (
           <section className={styles["notes-list"]}>
