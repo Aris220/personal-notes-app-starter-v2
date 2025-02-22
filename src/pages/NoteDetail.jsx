@@ -5,57 +5,58 @@ import PropTypes from "prop-types";
 //File css
 import styles from "../styles/style.module.css";
 //File utils
-// import {
-//   getNote,
-//   deleteNote,
-//   archiveNote,
-//   unarchiveNote,
-// } from "../utils/local-data";
+import {
+  getNote,
+  deleteNote,
+  archiveNote,
+  unarchiveNote,
+} from "../utils/network-data";
 //File component
 import ButtonArchive from "../component/Elements/button/buttonArchive";
 import ButtonDelete from "../component/Elements/button/buttonDelete";
 import ButtonActive from "../component/Elements/button/ButtonActive";
-
+import LoadingNote from "../component/Fragments/Loading";
 const NoteDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [dnote, setDnote] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const note = getNote(id);
-    if (!note) {
-      navigate("/*", { replace: true });
-    } else {
-      setDnote(note);
-    }
+    const fetchGetNote = async () => {
+      setLoading(true);
+      const note = await getNote(id);
+      if (!note) {
+        navigate("/*", { replace: true });
+      } else {
+        setDnote(note.data);
+      }
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      setLoading(false);
+    };
+    fetchGetNote();
   }, [id, navigate]);
 
-  const handleDelete = (e) => {
+  const handleDelete = async (e) => {
     e.preventDefault();
-    deleteNote(id);
-    if (dnote.archived) {
-      navigate("/archive");
-    } else {
-      navigate("/");
-    }
+    const deleteN = await deleteNote(id);
+    navigate(dnote.archived ? "/archive" : "/");
   };
 
-  const handleArchiveNote = (e) => {
+  const handleArchiveNote = async (e) => {
     e.preventDefault();
-    archiveNote(id);
+    const archiveN = await archiveNote(id);
     navigate("/archive");
   };
 
-  const handlerUnarchiveNota = (e) => {
+  const handlerUnarchiveNota = async (e) => {
     e.preventDefault();
     unarchiveNote(id);
+    const unarchiveN = await unarchiveNote(id);
     navigate("/");
   };
 
-  if (!dnote) {
-    return <p>Loading...</p>;
-  }
-
+  if (loading) return <LoadingNote />;
   return (
     <section className={styles["detail-page"]}>
       <h3 className={styles["detail-page__title"]}>{dnote.title}</h3>

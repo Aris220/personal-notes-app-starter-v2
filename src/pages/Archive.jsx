@@ -20,15 +20,7 @@ const Archive = () => {
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   if (!loaded.current) {
-  //     const data = getArchivedNotes();
-  //     setNotes(data);
-  //     loaded.current = true;
-  //   }
-  // }, []);
-
-  //?ini yg bner
+  //? fetch data archivedNotes
   useEffect(() => {
     const fetchArchivedNotes = async () => {
       setLoading(true);
