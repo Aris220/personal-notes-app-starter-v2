@@ -20,7 +20,6 @@ const AuthLayout = (props) => {
     <>
       <div className={`${styles["app-container"]} ${styles[theme]}`}>
         <Navbar type="auth" />
-        {/* <main>{children}</main> */}
         <main>
           <Outlet />
         </main>
@@ -28,10 +27,5 @@ const AuthLayout = (props) => {
     </>
   );
 };
-
-// PropTypes validation
-// MainLayout.propTypes = {
-//   children: PropTypes.node.isRequired,
-// };
 
 export default AuthLayout;

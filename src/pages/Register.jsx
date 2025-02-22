@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { useNavigate, Link } from "react-router";
 //File css
 import styles from "../styles/style.module.css";
@@ -63,7 +64,7 @@ const Register = () => {
 
   return (
     <section className={styles["register-page"]}>
-      <h2>{language === "en" ? "REGISTER" : "Daftar"}</h2>
+      <h2>{language === "en" ? "Register App" : "Daftar App"}</h2>
       <form onSubmit={handleSubmit}>
         <div className={styles["input-register"]}>
           <InputForm
@@ -129,5 +130,19 @@ const Register = () => {
     </section>
   );
 };
+// PropTypes untuk InputForm
+InputForm.propTypes = {
+  label: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
+// PropTypes untuk ButtonAuth
+ButtonAuth.propTypes = {
+  children: PropTypes.node.isRequired,
+  disabled: PropTypes.bool,
+};
 export default Register;

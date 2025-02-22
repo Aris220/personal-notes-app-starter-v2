@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import PropTypes from "prop-types";
 
 //File css
 import styles from "../../styles/style.module.css";
@@ -47,6 +48,9 @@ const Navbar = (props) => {
       </header>
     </>
   );
+};
+Navbar.propTypes = {
+  type: PropTypes.oneOf(["auth", "main"]).isRequired, // hanya bisa 'auth' atau 'main'
 };
 
 export default Navbar;

@@ -74,13 +74,16 @@ const NoteDetail = () => {
   );
 };
 
-NoteDetail.propTypes = {
-  dnote: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    createdAt: PropTypes.string.isRequired,
-    body: PropTypes.string.isRequired,
-    archived: PropTypes.bool.isRequired,
-  }),
+ButtonActive.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};
+
+ButtonArchive.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};
+
+ButtonDelete.propTypes = {
+  onClick: PropTypes.func.isRequired,
 };
 
 export default NoteDetail;

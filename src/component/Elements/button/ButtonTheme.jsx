@@ -5,8 +5,7 @@ import styles from "../../../styles/style.module.css";
 //File context
 import { useTheme } from "../../../context/theme/ThemeContext";
 
-const ButtonTheme = (props) => {
-  // const { onClick, theme } = props;
+const ButtonTheme = () => {
   const { theme, toggleTheme } = useTheme();
   const [svgContent, setSvgContent] = useState("");
 

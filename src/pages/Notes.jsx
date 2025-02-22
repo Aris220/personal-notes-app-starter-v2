@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useLocation } from "react-router";
 
@@ -18,6 +18,7 @@ import CardNote from "../component/Fragments/CardNote";
 import SearchNote from "../component/Fragments/SearchNote";
 import ButtonAdd from "../component/Elements/button/notes/ButtonAdd";
 import LoadingNote from "../component/Fragments/Loading";
+
 const Notes = () => {
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -89,18 +90,30 @@ const Notes = () => {
     </section>
   );
 };
-// PropTypes Validation for Notes Component (Child components)
-Notes.propTypes = {
-  notes: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-      title: PropTypes.string.isRequired,
-      createdAt: PropTypes.string.isRequired,
-      body: PropTypes.string.isRequired,
-      archived: PropTypes.bool.isRequired,
-    })
-  ),
-  handleAddNote: PropTypes.func,
+
+// PropTypes untuk CardNote
+CardNote.propTypes = {
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  title: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
+  archived: PropTypes.bool.isRequired,
+  type: PropTypes.string.isRequired,
+};
+
+// PropTypes untuk NotFound
+NotFound.propTypes = {
+  type: PropTypes.string.isRequired,
+};
+
+// PropTypes untuk SearchNote
+SearchNote.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+// PropTypes untuk ButtonAdd (jika menerima props)
+ButtonAdd.propTypes = {
+  onClick: PropTypes.func,
 };
 
 export default Notes;

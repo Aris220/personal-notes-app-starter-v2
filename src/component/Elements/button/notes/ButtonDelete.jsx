@@ -16,7 +16,7 @@ const ButtonDelete = ({ onClick }) => {
     <button
       className={styles["action"]}
       type="button"
-      title="arhive"
+      title="delete"
       onClick={onClick}
     >
       <span dangerouslySetInnerHTML={{ __html: svgContent }} />

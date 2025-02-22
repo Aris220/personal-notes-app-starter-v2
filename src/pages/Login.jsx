@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router";
+import PropTypes from "prop-types";
 
 //File css
 import styles from "../styles/style.module.css";
@@ -62,7 +63,7 @@ const Login = () => {
 
   return (
     <section className={styles["login-page"]}>
-      <h2>LOGIN</h2>
+      <h2>{language == "en" ? "Login App" : "Masuk App"}</h2>
       <form onSubmit={handleSubmit}>
         <div className={styles["input-login"]}>
           <InputForm
@@ -106,5 +107,29 @@ const Login = () => {
     </section>
   );
 };
+// PropTypes untuk komponen Login
+Login.propTypes = {
+  formData: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+  }),
+  handleChange: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  localErrors: PropTypes.object,
+};
 
+// PropTypes untuk komponen InputForm
+InputForm.propTypes = {
+  label: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+// PropTypes untuk komponen ButtonAuth
+ButtonAuth.propTypes = {
+  disabled: PropTypes.bool.isRequired,
+};
 export default Login;

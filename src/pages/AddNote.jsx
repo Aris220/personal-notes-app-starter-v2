@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import PropTypes from "prop-types";
 //File css
 import styles from "../styles/style.module.css";
 //File utils
@@ -29,19 +30,19 @@ const AddNote = () => {
       return;
     }
 
-    setLoading(true); // ✅ Show loading state
+    setLoading(true);
 
     // Call API to add note
     const result = await addNote({ title, body });
 
-    setLoading(false); // ✅ Hide loading state
+    setLoading(false);
 
     if (result.error) {
       alert("Failed to save note. Please try again.");
       return;
     }
 
-    navigate("/"); // ✅ Redirect on success
+    navigate("/");
   };
 
   return (
@@ -53,11 +54,11 @@ const AddNote = () => {
           name="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          disabled={loading} // ✅ Disable input when saving
+          disabled={loading}
         />
         <div
           className={styles["add-new-page__input__body"]}
-          contentEditable={!loading} // ✅ Prevent editing when saving
+          contentEditable={!loading}
           data-placeholder={
             language === "en"
               ? "TOP SECRET NOTE ....."
@@ -71,6 +72,11 @@ const AddNote = () => {
       </div>
     </section>
   );
+};
+// PropTypes validation
+AddNote.propTypes = {
+  initialTitle: PropTypes.string,
+  initialBody: PropTypes.string,
 };
 
 export default AddNote;

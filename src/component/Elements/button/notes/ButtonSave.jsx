@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { useState, useEffect } from "react";
 //File css
 import styles from "../../../../styles/style.module.css";
 

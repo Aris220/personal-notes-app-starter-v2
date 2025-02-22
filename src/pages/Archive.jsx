@@ -89,12 +89,18 @@ const Archive = () => {
   );
 };
 
-//Validation
-CardNote.propTypes = {
-  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  title: PropTypes.string.isRequired,
-  createdAt: PropTypes.string.isRequired,
-  body: PropTypes.string.isRequired,
-  archived: PropTypes.bool.isRequired,
+// PropTypes untuk komponen Archive
+Archive.propTypes = {
+  notes: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      title: PropTypes.string.isRequired,
+      createdAt: PropTypes.string.isRequired,
+      body: PropTypes.string.isRequired,
+      archived: PropTypes.bool.isRequired,
+    })
+  ),
+  loading: PropTypes.bool.isRequired,
 };
+
 export default Archive;
