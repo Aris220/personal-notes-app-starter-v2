@@ -9,7 +9,7 @@ import { useLanguage } from "../../context/language/LanguageContext";
 
 const SearchNote = (props) => {
   const { children } = props;
-  const language = useLanguage();
+  const { language } = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -28,7 +28,7 @@ const SearchNote = (props) => {
         <input
           type="text"
           placeholder={
-            language === "en" ? "Search by title" : "Cari berdasrkan judul"
+            language === "en" ? "Search by title" : "Cari berdasarkan judul"
           }
           onChange={handleSearch}
         />
