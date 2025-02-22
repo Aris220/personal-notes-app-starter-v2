@@ -1,9 +1,17 @@
 import PropTypes from "prop-types";
+import { useState, useEffect } from "react";
 
 //File css
 import styles from "../../../../styles/style.module.css";
 
 const ButtonDelete = ({ onClick }) => {
+  const [svgContent, setSvgContent] = useState("");
+
+  useEffect(() => {
+    fetch("/icons/delete.svg")
+      .then((res) => res.text())
+      .then(setSvgContent);
+  }, []);
   return (
     <button
       className={styles["action"]}
@@ -11,7 +19,7 @@ const ButtonDelete = ({ onClick }) => {
       title="arhive"
       onClick={onClick}
     >
-      <img src="/icons/delete.svg" alt="Delete Icon" />
+      <span dangerouslySetInnerHTML={{ __html: svgContent }} />
     </button>
   );
 };

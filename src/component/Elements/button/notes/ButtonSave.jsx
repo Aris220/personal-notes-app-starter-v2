@@ -3,6 +3,13 @@ import PropTypes from "prop-types";
 import styles from "../../../../styles/style.module.css";
 
 const ButtonSave = ({ onClick }) => {
+  const [svgContent, setSvgContent] = useState("");
+
+  useEffect(() => {
+    fetch("/icons/archive.svg")
+      .then((res) => res.text())
+      .then(setSvgContent);
+  }, []);
   return (
     <button
       className={styles["action"]}
@@ -10,7 +17,7 @@ const ButtonSave = ({ onClick }) => {
       title="save"
       onClick={onClick}
     >
-      <img src="/icons/archive.svg" alt="Save Icon" />
+      <span dangerouslySetInnerHTML={{ __html: svgContent }} />
     </button>
   );
 };

@@ -1,6 +1,23 @@
+/* Define CSS variables for light and dark mode */
+:root {
+  --skeleton-bg-light: #f0f0f0;
+  --skeleton-bg-dark: #2c2c2c;
+  --skeleton-element-light: #ddd;
+  --skeleton-element-dark: #444;
+  --skeleton-shadow-light: rgba(0, 0, 0, 0.1);
+  --skeleton-shadow-dark: rgba(255, 255, 255, 0.1);
+}
+
+/* Apply dark mode */
+[data-theme="light"] {
+  --skeleton-bg-light: var(--skeleton-bg-dark);
+  --skeleton-element-light: var(--skeleton-element-dark);
+  --skeleton-shadow-light: var(--skeleton-shadow-dark);
+}
+
 /* Skeleton container */
 .skeleton-card {
-  background: #f0f0f0;
+  background: var(--skeleton-bg-light);
   border-radius: 10px;
   padding: 20px;
   width: 100%;
@@ -9,7 +26,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px var(--skeleton-shadow-light);
   animation: pulse 1.5s infinite ease-in-out;
 }
 
@@ -17,33 +34,33 @@
 .skeleton-title {
   width: 80%;
   height: 20px;
-  background: #ddd;
+  background: var(--skeleton-element-light);
   border-radius: 4px;
 }
 
 .skeleton-body {
   width: 100%;
   height: 60px;
-  background: #e0e0e0;
+  background: var(--skeleton-element-light);
   border-radius: 4px;
 }
 
 .skeleton-date {
   width: 50%;
   height: 14px;
-  background: #d4d4d4;
+  background: var(--skeleton-element-light);
   border-radius: 4px;
 }
 
 /* Pulse animation */
 @keyframes pulse {
   0% {
-    background-color: #f0f0f0;
+    background-color: var(--skeleton-bg-light);
   }
   50% {
-    background-color: #e0e0e0;
+    background-color: var(--skeleton-element-light);
   }
   100% {
-    background-color: #f0f0f0;
+    background-color: var(--skeleton-bg-light);
   }
 }
