@@ -17,6 +17,7 @@ import { useLanguage } from "../../context/language/LanguageContext";
 const Navbar = (props) => {
   const { type, auth } = props;
   const { language } = useLanguage();
+
   const { logout, user } = auth;
 
   return (
