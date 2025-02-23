@@ -15,9 +15,10 @@ import useAuth from "../../hooks/useAuth";
 import { useLanguage } from "../../context/language/LanguageContext";
 
 const Navbar = (props) => {
-  const { type } = props;
-  const { logout, user } = useAuth();
+  const { type, auth } = props;
   const { language } = useLanguage();
+  const { logout, user } = auth;
+
   return (
     <>
       <header className={styles["header"]}>
@@ -39,9 +40,11 @@ const Navbar = (props) => {
                 {language === "en" ? "Archive" : "Arsip"}
               </Link>
               <ButtonTheme /> <ButtonLanguage />
-              <ButtonLogout onClick={logout}>
-                {`${user?.name || "User"}`}
-              </ButtonLogout>
+              {logout && (
+                <ButtonLogout onClick={logout}>
+                  {user ? user.name : "User"}
+                </ButtonLogout>
+              )}
             </>
           )}
         </nav>
@@ -49,5 +52,11 @@ const Navbar = (props) => {
     </>
   );
 };
-
+Navbar.propTypes = {
+  type: PropTypes.oneOf(["auth", "main"]).isRequired,
+  auth: PropTypes.shape({
+    user: PropTypes.object,
+    logout: PropTypes.func.isRequired,
+  }).isRequired,
+};
 export default Navbar;

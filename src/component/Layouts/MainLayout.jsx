@@ -12,7 +12,7 @@ const MainLayout = () => {
   return (
     <>
       <div className={`${styles["app-container"]} ${styles[theme]}`}>
-        <Navbar />
+        <Navbar type="main" />
         <main>
           <Outlet />
         </main>

@@ -27,7 +27,6 @@ const ButtonTheme = () => {
       dangerouslySetInnerHTML={{ __html: svgContent }}
     ></button>
   );
-  console.log(theme);
 };
 // PropTypes validation
 ButtonTheme.propTypes = {

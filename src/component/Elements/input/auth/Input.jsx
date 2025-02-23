@@ -1,4 +1,5 @@
 import { forwardRef } from "react";
+import PropTypes from "prop-types";
 
 const Input = forwardRef((props, ref) => {
   const { type, placeholder, name, value, onChange } = props;
@@ -14,4 +15,11 @@ const Input = forwardRef((props, ref) => {
     />
   );
 });
+Input.propTypes = {
+  type: PropTypes.string,
+  placeholder: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  onChange: PropTypes.func,
+};
 export default Input;

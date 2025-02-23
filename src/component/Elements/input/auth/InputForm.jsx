@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-
+import PropTypes from "prop-types";
 //File component
 import Label from "./Label";
 import Input from "./Input";
@@ -20,4 +20,12 @@ const InputForm = forwardRef((props, ref) => {
     </>
   );
 });
+InputForm.propTypes = {
+  label: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string,
+  placeholder: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  onChange: PropTypes.func,
+};
 export default InputForm;

@@ -30,7 +30,6 @@ const Notes = () => {
       const result = await getActiveNotes();
 
       if (result.error) {
-        console.error("Failed to fetch notes:", result);
         setNotes([]);
       } else {
         setNotes(result.data || []);

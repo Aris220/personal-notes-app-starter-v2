@@ -1,31 +1,30 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { login, register, getUserLogged } from "../utils/network-data";
 import { useNavigate } from "react-router";
 
-const useAuth = () => {
+const useAuth = ({ skipFetch = false } = {}) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [userName, setUserName] = useState("");
   const navigate = useNavigate();
 
-  // Check if user is already logged in
-  useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    if (token) {
-      setUser({ token: token });
-    }
-  }, []);
+  // const hasFetched = useRef(false);
+  const didRun = useRef(false);
 
   useEffect(() => {
+    if (skipFetch) return;
+    if (didRun.current) return;
+
     const fetchUser = async () => {
       const user = await getUserLogged();
       if (!user.error) {
-        setUser(user.data); // 🔹 Set username if available
+        setUser(user.data);
       }
     };
+
     fetchUser();
-  }, []);
+    didRun.current = true;
+  }, [skipFetch]);
 
   // Login function
   const handleLogin = useCallback(async ({ email, password }) => {

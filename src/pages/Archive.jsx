@@ -29,7 +29,6 @@ const Archive = () => {
       const result = await getArchivedNotes();
 
       if (result.error) {
-        console.error("Failed to fetch notes:", result);
         setNotes([]);
       } else {
         setNotes(result.data || []);

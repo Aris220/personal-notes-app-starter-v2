@@ -17,7 +17,7 @@ import ButtonAuth from "../component/Elements/button/auth/ButtonAuth";
 const Login = () => {
   const usernameRef = useRef(null);
   const navigate = useNavigate();
-  const { login, loading, error } = useAuth(); // Use useAuth hook
+  const { login, loading, error } = useAuth();
   const { language } = useLanguage();
   const [formData, setFormData] = useState({
     email: "",
